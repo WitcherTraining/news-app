@@ -5,19 +5,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER")
+@Entity
 public class User implements java.io.Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
+
+    @Enumerated(value = EnumType.STRING)
     private Role role;
-    private Set<News> news;
+
+    //Initialize Set to avoid null pointer at startup
+    @OneToMany
+    private Set<News> news = new HashSet<>();
 }

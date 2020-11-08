@@ -27,6 +27,6 @@ public class User implements java.io.Serializable {
     private Role role;
 
     //Initialize Set to avoid null pointer at startup
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private Set<News> news = new HashSet<>();
 }

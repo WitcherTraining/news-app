@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+</head>
+<body>
+
+<h1 th:text="'List of news'">List of news...</h1>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Brief content</th>
+        <th>Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="news" type="com.epam.spring.model.News"*/-->
+    <tr th:each="news : ${news}">
+        <td th:text="${news.id}">1</td>
+        <td th:text="${news.title}">Title</td>
+        <td th:text="${news.briefContent}">short text</td>
+        <td th:text="${news.content}">long text</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

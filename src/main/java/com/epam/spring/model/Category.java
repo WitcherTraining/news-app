@@ -1,8 +1,6 @@
 package com.epam.spring.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,13 +9,11 @@ import java.util.Set;
 
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Category implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Category extends BaseEntity {
 
     private String name;
 

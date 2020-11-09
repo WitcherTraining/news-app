@@ -13,13 +13,9 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"author"})
+@EqualsAndHashCode(exclude = {"author"}, callSuper = true)
 @Entity
-public class News implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class News extends BaseEntity {
 
     private String title;
     private String briefContent;

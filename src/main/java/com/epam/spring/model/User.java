@@ -14,17 +14,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User implements java.io.Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    private String login;
+    private String password;
 
     //Initialize Set to avoid null pointer at startup
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")

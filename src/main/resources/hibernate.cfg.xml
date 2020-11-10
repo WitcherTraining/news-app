@@ -10,7 +10,7 @@
 <!--        <property name="hibernate.connection.password">Oradoc_db1</property>-->
 <!--        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/news?autoReconnect=true</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/news?serverTimezone=UTC?autoReconnect=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">admin</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>

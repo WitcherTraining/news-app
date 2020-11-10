@@ -1,11 +1,133 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>News application</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>News app</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-<h1 th:text="'News Index page'">Hello it is News application</h1>
-
+<div class="container-fluid">
+    <div class="row">
+        <!-- HEADER -->
+        <header class="col-xs-12">
+            <h2 th:text="'News Index page'">NEWS TODAY</h2>
+        </header>
+    </div>
+    <div class="row">
+        <!-- ОСНОВНОЙ КОНТЕНТ -->
+        <section class="col-xs-12">
+            <div class="row">
+                <!-- MAIN -->
+                <main class="col-md-8 col-lg-9">
+                    <!--/*@thymesVar id="news" type="com.epam.spring.model.News"*/-->
+                    <div class="news-container" th:each="news : ${news}">
+                        <h3 class="text-danger" th:text="${news.getTitle()}">Penicillin allergies may be linked to one
+                            immune system gene</h3>
+                        <div class="brief-text text-success font-italic" th:text="${news.getBriefContent()}">
+                            People with self-reported allergies to the drug may have a vulnerability on the HLA-B gene
+                        </div>
+                        <ul class="flex-row font-italic text-info">
+                            <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
+                            Categories:
+                            <li th:each="category : ${news.categories}">
+                                <a href="#" th:text="${category.getName()}">Science</a>
+                            </li>
+                        </ul>
+                        <div class="news-text" th:text="${news.getContent()}">Penicillin, effective against many
+                            bacterial infections, is often a first-line antibiotic.
+                            Yet it is also one of the most common causes of drug allergies. Around 10 percent of people
+                            say they’ve had an allergic reaction to penicillin, according to the U.S. Centers for
+                            Disease
+                            Control and Prevention.
+                            Now researchers have found a genetic link to the hypersensitivity, which, while rarely
+                            fatal,
+                            can cause hives, wheezing, arrythmias and more.
+                            People who report penicillin allergies can have a genetic variation on an immune system gene
+                            that helps the body distinguish between our own cells and harmful bacteria and viruses.
+                            That hot spot is on the major histocompatibility complex gene HLA-B, said Kristi Krebs, a
+                            pharmacogenomics researcher for the Estonian Genome Center at the University of Tartu.
+                            She presented the finding October 26 at the American Society of Human Genetics 2020 virtual
+                            meeting.
+                            The research was also published online October 1 in the American Journal of Human Genetics.
+                        </div>
+                        <div class="text-lowercase text-info text-sm-right">
+                            <p th:text="${news.getAuthor().getFirstName()} + ' ' + ${news.getAuthor().getLastName()}">
+                                Author of this news
+                        </div>
+                    </div>
+                    <div class="news-container" th:remove="all">
+                        <h3 class="text-danger">Jupiter’s icy moon Europa may glow in the dark</h3>
+                        <div class="brief-text text-success font-italic">
+                            NASA scientist Murthy Gudipati and study co-author Bryana Henderson conducting experiments
+                            using an instrument developed to study the effect of high-energy electron radiation on a
+                            replica of Europa's icy surface.
+                        </div>
+                        <ul class="flex-row font-italic text-info">
+                            <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
+                            Categories:
+                            <li th:each="category : ${news.categories}">
+                                <a href="#" th:text="${category.getName()}">Science</a>
+                            </li>
+                            <li>
+                                <a href="#" th:text="${category.getName()}">Space</a>
+                            </li>
+                        </ul>
+                        Jupiter’s icy moon Europa could give the word “moonlight” a whole new meaning.
+                        New lab experiments suggest the nightside of this moon glows in the dark.
+                        Europa’s surface, thought to be mostly water ice laced with various salts, is continually
+                        bombarded with energetic electrons by Jupiter’s intense magnetic field (SN: 5/19/15).
+                        When researchers simulated that interaction in the lab by shooting electrons at salty
+                        ice samples, the ice glowed. The brightness of that glow depended on the kind of salt in
+                        the ice, researchers report online November 9 in Nature Astronomy.
+                        If the same interaction on Europa creates this never-before-seen kind of moonlight,
+                        a future mission there, such as NASA’s planned Europa Clipper spacecraft, may be able to
+                        use this ice glow map Europa’s surface composition. That, in turn, could give insight into
+                        the salinity of the ocean thought to lurk under Europa’s icy crust (SN: 6/14/19).
+                        “That has implications for the temperature of that liquid water — the freezing point; it has
+                        implications for the thickness of the ice shell; it has implications for the habitability of
+                        that liquid water,” says Jennifer Hanley, a planetary scientist at Lowell Observatory in
+                        Flagstaff, Ariz. not involved in the new work. Europa’s subsurface ocean is considered one of
+                        the most promising places to look for extraterrestrial life in the solar system (SN: 4/8/20)
+                        <div class="text-lowercase text-info text-sm-right">
+                            Author of this news
+                        </div>
+                    </div>
+                </main>
+                <!-- ASIDE -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="row">
+                        <!-- ASIDE #1 -->
+                        <aside class="col-sm-6 col-md-12">
+                            <div class="flex-row">
+                                <a href="#">Russian</a>
+                                <a href="#">English</a>
+                            </div>
+                        </aside>
+                        <br>
+                        <br>
+                        <br>
+                        <!-- ASIDE #2 -->
+                        <aside class="col-sm-6 col-md-12">
+                            <h4 class="text-info">User: <a href="#">John</a></h4>
+                            <h4 class="text-info">Your role: Admin</h4>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <br>
+    <div class="row">
+        <!-- FOOTER -->
+        <footer class="col-xs-12">
+            Footer of news portal
+        </footer>
+    </div>
+</div>
 </body>
 </html>

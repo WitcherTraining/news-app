@@ -4,6 +4,7 @@ import com.epam.spring.services.NewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/news")
@@ -16,11 +17,11 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping({"", "/", "/index"})
-    public String getIndexPage(Model model){
+    @GetMapping("/{id}/show")
+    public String showById(@PathVariable String id, Model model){
 
-        model.addAttribute("news", newsService.findAll());
+        model.addAttribute("oneNews", newsService.findById(Long.valueOf(id)));
 
-        return "news/index";
+        return "news/show";
     }
 }

@@ -2,11 +2,13 @@ package com.epam.spring.services.impl;
 
 import com.epam.spring.model.News;
 import com.epam.spring.services.NewsService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class NewsServiceImpl extends AbstractService<News, Long> implements NewsService {
 
     @Override

@@ -2,11 +2,13 @@ package com.epam.spring.services.impl;
 
 import com.epam.spring.model.User;
 import com.epam.spring.services.UserService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class UserServiceImpl extends AbstractService<User, Long> implements UserService {
 
     @Override

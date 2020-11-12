@@ -1,5 +1,6 @@
 package com.epam.spring.controllers;
 
+import com.epam.spring.model.News;
 import com.epam.spring.services.NewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,21 @@ public class NewsController {
 
     @GetMapping("/{id}/show")
     public String showById(@PathVariable String id, Model model){
-
         model.addAttribute("oneNews", newsService.findById(Long.valueOf(id)));
-
         return "news/show";
     }
+
+    @GetMapping("/{newsId}/edit")
+    public String initUpdateNewsForm(@PathVariable String newsId, Model model){
+        model.addAttribute(newsService.findById(Long.valueOf(newsId)));
+        return "news/createOrUpdateNewsForm";
+    }
+
+    @GetMapping("/new")
+    public String addNews(Model model){
+        model.addAttribute("news", new News());
+        return "news/createOrUpdateNewsForm";
+    }
+
+
 }

@@ -22,6 +22,26 @@
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <section class="col-xs-12">
             <div class="row">
+                <!-- ASIDE -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="row">
+                        <!-- ASIDE #1 -->
+                        <aside class="col-sm-6 col-md-12">
+                            <div class="flex-row">
+                                <a href="#">Russian</a>
+                                <a href="#">English</a>
+                            </div>
+                        </aside>
+                        <br>
+                        <br>
+                        <br>
+                        <!-- ASIDE #2 -->
+                        <aside class="col-sm-6 col-md-12">
+                            <h4 class="text-info"><a href="#" th:href="@{'/index'}">News list</a></h4>
+                            <h4 class="text-info"><a href="#" th:href="@{'/news/new'}">Create news</a></h4>
+                        </aside>
+                    </div>
+                </div>
                 <!-- MAIN -->
                 <main class="col-md-8 col-lg-9">
                     <!--/*@thymesVar id="news" type="com.epam.spring.model.News"*/-->
@@ -31,9 +51,14 @@
                         <div class="brief-text text-success font-italic" th:text="${news.getBriefContent()}">
                             People with self-reported allergies to the drug may have a vulnerability on the HLA-B gene
                         </div>
-                        <div>
+                        <div class="row">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="checkNewsForDelete">
+                                <label class="form-check-label" for="checkNewsForDelete">Choose for delete</label>
+                            </div>
                             <a class="btn btn-link" href="#"
                                th:href="@{'/news/' + ${news.id} + '/show'}" role="button">Read more...</a>
+                            <a href="#" class="btn btn-primary" th:href="@{'/news/' + ${news.id} + '/edit'}">Edit</a>
                         </div>
                         <ul class="flex-row font-italic text-info">
                             <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
@@ -72,27 +97,11 @@
                             Author of this news
                         </div>
                     </div>
-                </main>
-                <!-- ASIDE -->
-                <div class="col-md-4 col-lg-3">
-                    <div class="row">
-                        <!-- ASIDE #1 -->
-                        <aside class="col-sm-6 col-md-12">
-                            <div class="flex-row">
-                                <a href="#">Russian</a>
-                                <a href="#">English</a>
-                            </div>
-                        </aside>
-                        <br>
-                        <br>
-                        <br>
-                        <!-- ASIDE #2 -->
-                        <aside class="col-sm-6 col-md-12">
-                            <h4 class="text-info">User: <a href="#">John</a></h4>
-                            <h4 class="text-info">Your role: Admin</h4>
-                        </aside>
+                    <div>
+                        <a class="btn btn-primary" href="#"
+                           th:href="@{'/news/deleteChosen'}" role="button">Delete chosen news</a>
                     </div>
-                </div>
+                </main>
             </div>
         </section>
     </div>

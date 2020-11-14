@@ -46,19 +46,19 @@
                 <main class="col-md-8 col-lg-9">
                     <!--/*@thymesVar id="news" type="com.epam.spring.model.News"*/-->
                     <div class="news-container">
-                        <h3 class="text-danger" th:text="${oneNews.title}">Penicillin allergies may be linked to one
+                        <h3 class="text-danger" th:text="${news.title}">Penicillin allergies may be linked to one
                             immune system gene</h3>
-                        <div class="brief-text text-success font-italic" th:text="${oneNews.getBriefContent()}">
+                        <div class="brief-text text-success font-italic" th:text="${news.getBriefContent()}">
                             People with self-reported allergies to the drug may have a vulnerability on the HLA-B gene
                         </div>
                         <ul class="flex-row font-italic text-info">
                             <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
                             Categories:
-                            <li th:each="category : ${oneNews.categories}">
+                            <li th:each="category : ${news.categories}">
                                 <a href="#" th:text="${category.getName()}">Science</a>
                             </li>
                         </ul>
-                        <div class="news-text" th:text="${oneNews.getContent()}">Penicillin, effective against many
+                        <div class="news-text" th:text="${news.getContent()}">Penicillin, effective against many
                             bacterial infections, is often a first-line antibiotic.
                             Yet it is also one of the most common causes of drug allergies. Around 10 percent of people
                             say they’ve had an allergic reaction to penicillin, according to the U.S. Centers for
@@ -76,11 +76,11 @@
                             The research was also published online October 1 in the American Journal of Human Genetics.
                         </div>
                         <div class="text-lowercase text-info text-sm-right">
-                            <p th:text="${oneNews.getAuthor().getFirstName()} + ' ' + ${oneNews.getAuthor().getLastName()}">
+                            <p th:text="${news.getAuthor().getFirstName()} + ' ' + ${news.getAuthor().getLastName()}">
                                 Author of this news
                         </div>
-                        <a href="#" class="btn btn-primary" th:href="@{'/news/' + ${oneNews.id} + '/edit'}">Edit</a>
-                        <a href="#" class="btn btn-primary" th:href="@{'/news/' + ${oneNews.id} + '/delete'}">Delete</a>
+                        <a href="#" class="btn btn-primary" th:href="@{'/news/' + ${news.id} + '/edit'}">Edit</a>
+                        <a href="#" class="btn btn-danger" th:href="@{'/news/' + ${news.id} + '/delete'}">Delete</a>
                     </div>
                 </main>
             </div>

@@ -45,62 +45,73 @@
                 <!-- MAIN -->
                 <main class="col-md-8 col-lg-9">
                     <!--/*@thymesVar id="news" type="com.epam.spring.model.News"*/-->
-                    <div class="news-container" th:each="news : ${news}">
-                        <h3 class="text-danger" th:text="${news.getTitle()}">Penicillin allergies may be linked to one
-                            immune system gene</h3>
-                        <div class="brief-text text-success font-italic" th:text="${news.getBriefContent()}">
-                            People with self-reported allergies to the drug may have a vulnerability on the HLA-B gene
-                        </div>
-                        <div class="row">
+                    <form th:object="${news}" th:action="@{'/news/delete_checked'}" method="post">
+                        <div class="news-container" th:each="news : ${news}">
+                            <h3 class="text-danger" th:text="${news.getTitle()}">Penicillin allergies may be linked to
+                                one
+                                immune system gene</h3>
+                            <div class="brief-text text-success font-italic" th:text="${news.getBriefContent()}">
+                                People with self-reported allergies to the drug may have a vulnerability on the HLA-B
+                                gene
+                            </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="checkNewsForDelete">
+                                <input type="checkbox"
+                                       class="form-check-input" id="checkNewsForDelete">
                                 <label class="form-check-label" for="checkNewsForDelete">Choose for delete</label>
                             </div>
-                            <a class="btn btn-link" href="#"
-                               th:href="@{'/news/' + ${news.id} + '/show'}" role="button">Read more...</a>
-                            <a href="#" class="btn btn-primary" th:href="@{'/news/' + ${news.id} + '/edit'}">Edit</a>
+                            <div class="row">
+                                <a class="btn btn-link" href="#"
+                                   th:href="@{'/news/' + ${news.id} + '/show'}" role="button">Read more...</a>
+                                <a href="#" class="btn btn-primary"
+                                   th:href="@{'/news/' + ${news.id} + '/edit'}">Edit</a>
+                            </div>
+                            <ul class="flex-row font-italic text-info">
+                                <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
+                                Categories:
+                                <li th:each="category : ${news.categories}">
+                                    <a href="#" th:text="${category.getName()}">Science</a>
+                                </li>
+                            </ul>
+                            <div class="text-info text-sm-right">
+                                <p th:text="${news.getAuthor().getFirstName()} + ' ' + ${news.getAuthor().getLastName()}">
+                                    Author of this news
+                            </div>
                         </div>
-                        <ul class="flex-row font-italic text-info">
-                            <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
-                            Categories:
-                            <li th:each="category : ${news.categories}">
-                                <a href="#" th:text="${category.getName()}">Science</a>
-                            </li>
-                        </ul>
-                        <div class="text-info text-sm-right">
-                            <p th:text="${news.getAuthor().getFirstName()} + ' ' + ${news.getAuthor().getLastName()}">
+                        <div class="news-container" th:remove="all">
+                            <h3 class="text-danger">Jupiter’s icy moon Europa may glow in the dark</h3>
+                            <div class="brief-text text-success font-italic">
+                                NASA scientist Murthy Gudipati and study co-author Bryana Henderson conducting
+                                experiments
+                                using an instrument developed to study the effect of high-energy electron radiation on a
+                                replica of Europa's icy surface.
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="checkNewsForDelete">Choose for delete</label>
+                            </div>
+                            <div class="row">
+                                <a class="btn btn-link" href="#" role="button">Read more...</a>
+                                <a href="#" class="btn btn-primary">Edit</a>
+                            </div>
+                            <ul class="flex-row font-italic text-info">
+                                <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
+                                Categories:
+                                <li>
+                                    <a href="#">Science</a>
+                                </li>
+                                <li>
+                                    <a href="#">Space</a>
+                                </li>
+                            </ul>
+                            <div class="text-info text-sm-right">
                                 Author of this news
+                            </div>
                         </div>
-                    </div>
-                    <div class="news-container" th:remove="all">
-                        <h3 class="text-danger">Jupiter’s icy moon Europa may glow in the dark</h3>
-                        <div class="brief-text text-success font-italic">
-                            NASA scientist Murthy Gudipati and study co-author Bryana Henderson conducting experiments
-                            using an instrument developed to study the effect of high-energy electron radiation on a
-                            replica of Europa's icy surface.
-                        </div>
-                        <ul class="flex-row font-italic text-info">
-                            <!--/*@thymesVar id="getName" type="com.epam.spring.model.Category"*/-->
-                            Categories:
-                            <li>
-                                <a href="#">Science</a>
-                            </li>
-                            <li>
-                                <a href="#">Space</a>
-                            </li>
-                        </ul>
                         <div>
-                            <a class="btn btn-link" href="#"
-                               th:href="@{'/news/' + ${news.id} + '/show'}" role="button">Read more...</a>
+                            <a class="btn btn-danger" href="#"
+                               th:href="@{'/news/deleteChosen'}" role="button">Delete checked news</a>
                         </div>
-                        <div class="text-info text-sm-right">
-                            Author of this news
-                        </div>
-                    </div>
-                    <div>
-                        <a class="btn btn-primary" href="#"
-                           th:href="@{'/news/deleteChosen'}" role="button">Delete chosen news</a>
-                    </div>
+                    </form>
                 </main>
             </div>
         </section>

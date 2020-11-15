@@ -15,7 +15,5 @@
         <property name="hibernate.connection.password">admin</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
-        <mapping class="com.epam.spring.model.News"/>
-        <mapping class="com.epam.spring.model.Category"/>
     </session-factory>
 </hibernate-configuration>

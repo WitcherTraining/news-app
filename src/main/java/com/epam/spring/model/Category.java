@@ -3,7 +3,6 @@ package com.epam.spring.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,8 +12,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "CATEGORY")
 public class Category extends BaseEntity {
 
+    @Column(name = "NAME")
     private String name;
 
     //Initialize Set to avoid null pointer at startup

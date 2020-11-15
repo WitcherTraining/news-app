@@ -14,15 +14,22 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "USER")
 public class User extends BaseEntity {
 
+    @Column(name = "FIRST_NAME")
     private String firstName;
+
+    @Column(name = "LAST_NAME")
     private String lastName;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @Column(name = "LOGIN")
     private String login;
+
+    @Column(name = "PASSWORD")
     private String password;
 
     //Initialize Set to avoid null pointer at startup

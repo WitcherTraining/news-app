@@ -31,6 +31,7 @@ public class News extends BaseEntity {
     private LocalDate date;
 
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User author;
 
     @ManyToMany(fetch = FetchType.EAGER)

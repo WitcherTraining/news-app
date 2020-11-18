@@ -38,7 +38,8 @@
                         <!-- ASIDE #2 -->
                         <aside class="col-sm-6 col-md-12">
                             <h4 class="text-info"><a href="#" th:href="@{'/index'}">News list</a></h4>
-                            <h4 class="text-info"><a href="#" th:href="@{'/news/new'}">Create news</a></h4>
+                            <h4 class="text-info"><!--/*@thymesVar id="user" type="com.epam.spring.model.User"*/-->
+                            <a href="#" th:object="${user}" th:href="@{'/news/new'}">Create news</a></h4>
                         </aside>
                     </div>
                 </div>

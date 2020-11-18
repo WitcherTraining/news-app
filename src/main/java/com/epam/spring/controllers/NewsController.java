@@ -2,7 +2,8 @@ package com.epam.spring.controllers;
 
 import com.epam.spring.model.News;
 import com.epam.spring.model.User;
-import com.epam.spring.services.NewsService;
+import com.epam.spring.services.dao.NewsDAO;
+import com.epam.spring.services.dao.UserDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,21 +17,23 @@ import javax.validation.Valid;
 @Controller
 public class NewsController {
 
-    private final NewsService newsService;
+    private final NewsDAO newsDAO;
+    private final UserDAO userDAO;
 
-    public NewsController(NewsService newsService) {
-        this.newsService = newsService;
+    public NewsController(NewsDAO newsDAO, UserDAO userDAO) {
+        this.newsDAO = newsDAO;
+        this.userDAO = userDAO;
     }
 
     @GetMapping("/{id}/show")
     public String showById(@PathVariable String id, Model model){
-        model.addAttribute("news", newsService.findById(Long.valueOf(id)));
+        model.addAttribute("news", newsDAO.findById(Long.valueOf(id)));
         return "news/show";
     }
 
     @GetMapping("/{newsId}/edit")
     public String initUpdateForm(@PathVariable String newsId, Model model){
-        model.addAttribute(newsService.findById(Long.valueOf(newsId)));
+        model.addAttribute(newsDAO.findById(Long.valueOf(newsId)));
         return "news/createOrUpdateNewsForm";
     }
 
@@ -48,8 +51,8 @@ public class NewsController {
             return "news/createOrUpdateNewsForm";
         } else {
             user.getNews().add(news);
-            News savedNews = newsService.save(news);
-            return "redirect:/news/" + savedNews.getId() + "/show";
+            News savedNews = newsDAO.save(news);
+            return "redirect:/news/" + savedNews.getId() + "index";
         }
     }
 
@@ -58,8 +61,13 @@ public class NewsController {
         if (result.hasErrors()) {
             return "news/createOrUpdateNewsForm";
         } else {
-            News savedNews = newsService.save(news);
-            return "redirect:/news/" + savedNews.getId() + "/show";
+            String surname = news.getAuthor().getLastName();
+            User user = userDAO.findByLastName(surname);
+            System.out.println(user.getFirstName());
+            news.setAuthor(user);
+            News savedNews = newsDAO.save(news);
+            user.getNews().add(savedNews);
+            return "redirect:/news/" + savedNews.getId() + "index";
         }
     }
 
@@ -68,8 +76,8 @@ public class NewsController {
 
         log.debug("Deleting news with id: " + id);
 
-        newsService.deleteById(Long.valueOf(id));
+        newsDAO.deleteById(Long.valueOf(id));
 
-        return "redirect:/index";
+        return "index";
     }
 }

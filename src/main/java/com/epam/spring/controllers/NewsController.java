@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Slf4j
-@RequestMapping("/news")
+@RequestMapping("/users/{userId}/news")
 @Controller
 public class NewsController {
 
@@ -25,25 +25,38 @@ public class NewsController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping("/{id}/show")
-    public String showById(@PathVariable String id, Model model){
-        model.addAttribute("news", newsDAO.findById(Long.valueOf(id)));
+    @GetMapping("/{newsId}/show")
+    public String showById(@PathVariable String newsId,
+                           @PathVariable String userId, Model model){
+        User user = userDAO.findById(Long.valueOf(userId));
+        News news = newsDAO.findById(Long.valueOf(newsId));
+        user.getNews().add(news);
+        news.setAuthor(user);
+        model.addAttribute("news", news);
         return "news/show";
     }
 
     @GetMapping("/{newsId}/edit")
-    public String initUpdateForm(@PathVariable String newsId, Model model){
-        model.addAttribute(newsDAO.findById(Long.valueOf(newsId)));
+    public String initUpdateForm(@PathVariable String newsId,
+                                 @PathVariable String userId, Model model){
+        User user = userDAO.findById(Long.valueOf(userId));
+        News news = newsDAO.findById(Long.valueOf(newsId));
+        user.getNews().add(news);
+        news.setAuthor(user);
+        model.addAttribute("news", news);
         return "news/createOrUpdateNewsForm";
     }
 
     @GetMapping("/new")
-    public String addNews(Model model){
-        model.addAttribute("news", new News());
+    public String addNews(User user, Model model){
+        News news = new News();
+        user.getNews().add(news);
+        news.setAuthor(user);
+        model.addAttribute("news", news);
         return "news/createOrUpdateNewsForm";
     }
 
-    @PostMapping("{newsId}/show")
+    @PostMapping("{newsId}/new")
     public String processUpdateForm(@Valid News news, User user, Model model, BindingResult result){
         if (result.hasErrors()) {
             news.setAuthor(user);
@@ -51,8 +64,8 @@ public class NewsController {
             return "news/createOrUpdateNewsForm";
         } else {
             user.getNews().add(news);
-            News savedNews = newsDAO.save(news);
-            return "redirect:/news/" + savedNews.getId() + "index";
+            newsDAO.save(news);
+            return "redirect:/users/newsListByAuthor";
         }
     }
 
@@ -65,9 +78,9 @@ public class NewsController {
             User user = userDAO.findByLastName(surname);
             System.out.println(user.getFirstName());
             news.setAuthor(user);
-            News savedNews = newsDAO.save(news);
-            user.getNews().add(savedNews);
-            return "redirect:/news/" + savedNews.getId() + "index";
+            newsDAO.save(news);
+            user.getNews().add(news);
+            return "redirect:/news/" + news.getId() + "/index";
         }
     }
 

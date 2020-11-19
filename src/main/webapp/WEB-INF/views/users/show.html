@@ -61,7 +61,7 @@
                             <td th:text="${user.firstName}">John</td>
                             <td th:text="${user.lastName}">Doe</td>
                             <td th:text="${user.role}">Author</td>
-                            <td th:text="Written news"><a href="#" th:href="@{user.id/news}">Written news</a></td>
+                            <td><a href="#" th:href="@{'/users/' + ${user.id} + '/newsListByAuthor'}">Written news</a></td>
                         </tr>
                         </tbody>
                     </table>

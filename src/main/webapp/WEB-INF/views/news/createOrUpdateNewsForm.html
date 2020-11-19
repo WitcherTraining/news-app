@@ -43,7 +43,7 @@
             <div class="row">
                 <!-- MAIN -->
                 <main class="col-md-8 col-lg-12">
-                    <form th:object="${news}" th:action="@{'/news/' + ${news.getId()} + '/show'}" method="post">
+                    <form th:object="${news}" th:action="@{'/users/' + ${news.getAuthor().getId()} + '/news/new'}" method="post">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="pannel-group">
                             <div class="panel panel-primary">

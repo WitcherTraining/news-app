@@ -38,7 +38,7 @@
                         <!-- ASIDE #2 -->
                         <aside class="col-sm-6 col-md-12">
                             <h4 class="text-info"><a href="#" th:href="@{'/index'}">News list</a></h4>
-                            <h4 class="text-info"><a href="#" th:href="@{'/news/new'}">Create news</a></h4>
+                            <h4 class="text-info"><a href="#" th:href="@{'/users/' + ${news.getAuthor().getId()} + '/news/new'}">Create news</a></h4>
                         </aside>
                     </div>
                 </div>
@@ -79,8 +79,10 @@
                             <p th:text="${news.getAuthor().getFirstName()} + ' ' + ${news.getAuthor().getLastName()}">
                                 Author of this news
                         </div>
-                        <a href="#" class="btn btn-primary" th:href="@{'/news/' + ${news.id} + '/edit'}">Edit</a>
-                        <a href="#" class="btn btn-danger" th:href="@{'/news/' + ${news.id} + '/delete'}">Delete</a>
+                        <a href="#" class="btn btn-primary"
+                           th:href="@{'/users/' + ${news.getAuthor().getId()} + '/news/' + ${news.id} + '/edit'}">Edit</a>
+                        <a href="#" class="btn btn-danger"
+                           th:href="@{'/users/' + ${news.getAuthor().getId()} + '/news/' + ${news.id} + '/edit'}">Delete</a>
                     </div>
                 </main>
             </div>

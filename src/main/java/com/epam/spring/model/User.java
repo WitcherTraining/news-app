@@ -32,7 +32,7 @@ public class User extends BaseEntity {
     @Column(name = "PASSWORD")
     private String password;
 
-    //Initialize Set to avoid null pointer at startup
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    //Initialize Set to avoid null pointer at startup, EAGER fetch for prepare news collection
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
     private Set<News> news = new HashSet<>();
 }

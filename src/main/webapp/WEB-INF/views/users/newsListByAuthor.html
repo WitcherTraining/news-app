@@ -15,7 +15,7 @@
     <div class="row">
         <!-- HEADER -->
         <header class="col-xs-12">
-            <h2 th:text="'News Index page'">NEWS TODAY</h2>
+            <h2 th:text="'News by one author'">One author`s news</h2>
         </header>
     </div>
     <div class="row">
@@ -39,18 +39,16 @@
                         <aside class="col-sm-6 col-md-12">
                             <h4 class="text-info"><a href="#" th:href="@{'/index'}">News list</a></h4>
                             <h4 class="text-info"><!--/*@thymesVar id="user" type="com.epam.spring.model.User"*/-->
-                            <a href="#" th:href="@{'/users/show'}">Show all users</a></h4>
+                                <a href="#" th:object="${user}" th:href="@{'/users/' + ${user.getId()} + '/news/new'}">Create news</a></h4>
                         </aside>
                     </div>
                 </div>
                 <!-- MAIN -->
                 <main class="col-md-8 col-lg-9">
                     <!--/*@thymesVar id="news" type="com.epam.spring.model.News"*/-->
-                    <form th:object="${news}" th:action="@{'/news/delete_checked'}" method="post">
-                        <div class="news-container" th:each="news : ${news}">
+                        <div class="news-container" th:each="news : ${user.getNews()}">
                             <h3 class="text-danger" th:text="${news.getTitle()}">Penicillin allergies may be linked to
-                                one
-                                immune system gene</h3>
+                                one immune system gene</h3>
                             <div class="brief-text text-success font-italic" th:text="${news.getBriefContent()}">
                                 People with self-reported allergies to the drug may have a vulnerability on the HLA-B
                                 gene
@@ -61,7 +59,6 @@
                                 <label class="form-check-label" for="checkNewsForDelete">Choose for delete</label>
                             </div>
                             <div class="row">
-                                <!--/*@thymesVar id="user" type="com.epam.spring.model.User"*/-->
                                 <a class="btn btn-link" href="#"
                                    th:href="@{'/users/' + ${news.getAuthor().getId()} + '/news/' + ${news.id} + '/show'}" role="button">Read more...</a>
                                 <a href="#" class="btn btn-primary"
@@ -76,7 +73,7 @@
                             </ul>
                             <div class="text-info text-sm-right">
                                 <a th:text="${news.getAuthor().getFirstName()} + ' ' + ${news.getAuthor().getLastName()}"
-                                   th:href="@{'/users/' + ${news.getAuthor().getId()} + '/newsListByAuthor'}">
+                                   th:href="@{'/users/' + ${news.getAuthor().getId()} + '/show'}">
                                     Author of this news</a>
                             </div>
                         </div>
@@ -114,7 +111,6 @@
                             <a class="btn btn-danger" href="#"
                                th:href="@{'/news/deleteChosen'}" role="button">Delete checked news</a>
                         </div>
-                    </form>
                 </main>
             </div>
         </section>

@@ -10,7 +10,7 @@ public interface NewsDAO {
 
     News findById(Long id);
 
-    News save(News object);
+    void save(News object);
 
     void delete(News object);
 

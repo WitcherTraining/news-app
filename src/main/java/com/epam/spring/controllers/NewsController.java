@@ -27,7 +27,7 @@ public class NewsController {
 
     @GetMapping("/{newsId}/show")
     public String showById(@PathVariable String newsId,
-                           @PathVariable String userId, Model model){
+                           @PathVariable String userId, Model model) {
         User user = userDAO.findById(Long.valueOf(userId));
         News news = newsDAO.findById(Long.valueOf(newsId));
         user.getNews().add(news);
@@ -38,7 +38,7 @@ public class NewsController {
 
     @GetMapping("/{newsId}/edit")
     public String initUpdateForm(@PathVariable String newsId,
-                                 @PathVariable String userId, Model model){
+                                 @PathVariable String userId, Model model) {
         User user = userDAO.findById(Long.valueOf(userId));
         News news = newsDAO.findById(Long.valueOf(newsId));
         user.getNews().add(news);
@@ -48,7 +48,7 @@ public class NewsController {
     }
 
     @GetMapping("/new")
-    public String addNews(User user, Model model){
+    public String addNews(User user, Model model) {
         News news = new News();
         user.getNews().add(news);
         news.setAuthor(user);
@@ -56,16 +56,16 @@ public class NewsController {
         return "news/createOrUpdateNewsForm";
     }
 
-    @PostMapping("{newsId}/new")
-    public String processUpdateForm(@Valid News news, User user, Model model, BindingResult result){
-        if (result.hasErrors()) {
+    @PostMapping("{newsId}/edit")
+    public String processUpdateForm(@Valid News news, User user, BindingResult result, Model model) {
+        if (result.hasErrors()){
             news.setAuthor(user);
             model.addAttribute("news", news);
             return "news/createOrUpdateNewsForm";
         } else {
             user.getNews().add(news);
             newsDAO.save(news);
-            return "redirect:/users/newsListByAuthor";
+            return "redirect:/users/" + news.getAuthor().getId() + "/newsListByAuthor";
         }
     }
 
@@ -85,7 +85,7 @@ public class NewsController {
     }
 
     @GetMapping("{id}/delete")
-    public String deleteById(@PathVariable String id){
+    public String deleteById(@PathVariable String id) {
 
         log.debug("Deleting news with id: " + id);
 

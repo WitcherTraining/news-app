@@ -45,6 +45,13 @@ public class NewsDAOImpl implements NewsDAO {
 
     @Override
     @Transactional
+    public void update(News object) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.update(object);
+    }
+
+    @Override
+    @Transactional
     public void delete(News object) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.delete(object);

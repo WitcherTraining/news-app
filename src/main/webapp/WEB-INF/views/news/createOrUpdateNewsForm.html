@@ -44,8 +44,8 @@
                 <!-- MAIN -->
                 <main class="col-md-8 col-lg-12">
                     <!--/*@thymesVar id="getAuthor" type="com.epam.spring.model.News"*/-->
-                    <form th:object="${news}"
-                          th:action="@{'/users/' + ${news.getAuthor().getId()} + '/news/' + ${news.getId()} + '/edit'}" method="post">
+<!--                    th:action="@{'/users/' + ${news.getAuthor().getId()} + '/news/' + ${news.getId()} + '/edit'}"-->
+                    <form th:object="${news}" method="post">
                         <input type="hidden" th:field="*{id}"/>
                         <input type="hidden" th:field="*{author.id}"/>
                         <div class="pannel-group">

@@ -36,20 +36,35 @@ public class NewsController {
         return "news/show";
     }
 
-    @GetMapping("/{newsId}/edit")
-    public String initUpdateForm(@PathVariable String newsId,
-                                 @PathVariable String userId, Model model) {
-        User user = userDAO.findById(Long.valueOf(userId));
-        News news = newsDAO.findById(Long.valueOf(newsId));
+    @GetMapping("/new")
+    public String initCreationNews(User user, Model model) {
+        News news = new News();
         user.getNews().add(news);
         news.setAuthor(user);
         model.addAttribute("news", news);
         return "news/createOrUpdateNewsForm";
     }
 
-    @GetMapping("/new")
-    public String addNews(User user, Model model) {
-        News news = new News();
+    @PostMapping("/new")
+    public String processCreationForm(@Valid News news, BindingResult result) {
+        if (result.hasErrors()) {
+            return "news/createOrUpdateNewsForm";
+        } else {
+            String surname = news.getAuthor().getLastName();
+            User user = userDAO.findByLastName(surname);
+            news.setAuthor(user);
+            user.getNews().add(news);
+
+            newsDAO.save(news);
+            return "redirect:/users/" + news.getAuthor().getId() + "/newsListByAuthor";
+        }
+    }
+
+    @GetMapping("/{newsId}/edit")
+    public String initUpdateForm(@PathVariable String newsId,
+                                 @PathVariable String userId, Model model) {
+        User user = userDAO.findById(Long.valueOf(userId));
+        News news = newsDAO.findById(Long.valueOf(newsId));
         user.getNews().add(news);
         news.setAuthor(user);
         model.addAttribute("news", news);
@@ -64,23 +79,9 @@ public class NewsController {
             return "news/createOrUpdateNewsForm";
         } else {
             user.getNews().add(news);
-            newsDAO.save(news);
+            System.out.println(news.toString());
+            newsDAO.update(news);
             return "redirect:/users/" + news.getAuthor().getId() + "/newsListByAuthor";
-        }
-    }
-
-    @PostMapping("/new")
-    public String processCreationForm(@Valid News news, BindingResult result) {
-        if (result.hasErrors()) {
-            return "news/createOrUpdateNewsForm";
-        } else {
-            String surname = news.getAuthor().getLastName();
-            User user = userDAO.findByLastName(surname);
-            System.out.println(user.getFirstName());
-            news.setAuthor(user);
-            newsDAO.save(news);
-            user.getNews().add(news);
-            return "redirect:/news/" + news.getId() + "/index";
         }
     }
 

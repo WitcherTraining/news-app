@@ -1,7 +1,9 @@
 package com.epam.spring.controllers;
 
+import com.epam.spring.model.Category;
 import com.epam.spring.model.News;
 import com.epam.spring.model.User;
+import com.epam.spring.services.dao.CategoryDAO;
 import com.epam.spring.services.dao.NewsDAO;
 import com.epam.spring.services.dao.UserDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/users/{userId}/news")
@@ -19,10 +22,12 @@ public class NewsController {
 
     private final NewsDAO newsDAO;
     private final UserDAO userDAO;
+    private final CategoryDAO categoryDAO;
 
-    public NewsController(NewsDAO newsDAO, UserDAO userDAO) {
+    public NewsController(NewsDAO newsDAO, UserDAO userDAO, CategoryDAO categoryDAO) {
         this.newsDAO = newsDAO;
         this.userDAO = userDAO;
+        this.categoryDAO = categoryDAO;
     }
 
     @GetMapping("/{newsId}/show")
@@ -41,6 +46,10 @@ public class NewsController {
         News news = new News();
         user.getNews().add(news);
         news.setAuthor(user);
+
+        List<Category> categories = categoryDAO.findAll();
+        model.addAttribute("categories", categories);
+
         model.addAttribute("news", news);
         return "news/createOrUpdateNewsForm";
     }
@@ -67,6 +76,8 @@ public class NewsController {
         News news = newsDAO.findById(Long.valueOf(newsId));
         user.getNews().add(news);
         news.setAuthor(user);
+        List<Category> categories = categoryDAO.findAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("news", news);
         return "news/createOrUpdateNewsForm";
     }
@@ -79,7 +90,7 @@ public class NewsController {
             return "news/createOrUpdateNewsForm";
         } else {
             user.getNews().add(news);
-            System.out.println(news.toString());
+
             newsDAO.update(news);
             return "redirect:/users/" + news.getAuthor().getId() + "/newsListByAuthor";
         }

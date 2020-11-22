@@ -59,6 +59,12 @@
                                             <label>News title:</label>
                                             <input type="text" class="form-control" th:field="*{title}"/>
                                         </div>
+                                        <div class="form-check col-md-2 form-group" th:each="category : ${categories}">
+                                            <input type="checkbox" id="checkCategory">
+                                            <label class="form-check-label" for="checkCategory">
+                                                <strong th:text="${category.name}">Categories:</strong>
+                                            </label>
+                                        </div>
                                         <div class="col-md-3 form-group">
                                             <label>News date:</label>
                                             <input type="datetime-local" class="form-control"/>

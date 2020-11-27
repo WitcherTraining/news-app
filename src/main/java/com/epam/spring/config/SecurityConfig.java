@@ -2,6 +2,7 @@ package com.epam.spring.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -18,5 +19,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser(users.username("Mary").password("test123").roles("ADMIN"))
                 .withUser(users.username("Denis").password("test123").roles("AUTHOR"))
                 .withUser(users.username("Petr").password("test123").roles("AUTHOR"));
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/showLoginPage")
+                .loginProcessingUrl("/authenticateUser")
+                .permitAll();
     }
 }

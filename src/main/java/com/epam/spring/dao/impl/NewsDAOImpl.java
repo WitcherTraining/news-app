@@ -1,6 +1,7 @@
-package com.epam.spring.services.dao;
+package com.epam.spring.dao.impl;
 
-import com.epam.spring.model.Category;
+import com.epam.spring.dao.NewsDAO;
+import com.epam.spring.model.News;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -8,51 +9,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Repository
-public class CategoryDAOImpl implements CategoryDAO {
+public class NewsDAOImpl implements NewsDAO {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public CategoryDAOImpl(SessionFactory sessionFactory) {
+    public NewsDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     @Transactional
-    public List<Category> findAll() {
+    public List<News> findAll() {
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query<Category> theQuery = currentSession.createQuery("from Category order by name ", Category.class);
+        Query<News> theQuery = currentSession.createQuery("from News order by date ", News.class);
         return theQuery.getResultList();
     }
 
     @Override
     @Transactional
-    public Category findById(Long id) {
+    public News findById(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.get(Category.class, id);
+        return currentSession.get(News.class, id);
     }
 
     @Override
     @Transactional
-    public void save(Category object) {
+    public News save(News object) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(object);
+        Serializable savedNews = currentSession.save(object);
+        return (News) savedNews;
     }
 
     @Override
     @Transactional
-    public void update(Category object) {
+    public void update(News object) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.update(object);
     }
 
     @Override
     @Transactional
-    public void delete(Category object) {
+    public void delete(News object) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.delete(object);
     }
@@ -62,9 +65,9 @@ public class CategoryDAOImpl implements CategoryDAO {
     public void deleteById(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query theQuery = currentSession.createQuery("delete from Category where id=:categoryId");
+        Query theQuery = currentSession.createQuery("delete from News where id=:newsId");
 
-        theQuery.setParameter("categoryId", id);
+        theQuery.setParameter("newsId", id);
 
         theQuery.executeUpdate();
     }

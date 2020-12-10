@@ -33,9 +33,4 @@ public class News extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "AUTHOR_ID")
     private User author;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "NEWS_CATEGORY", joinColumns = @JoinColumn(name = "NEWS_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
-    private Set<Category> categories = new HashSet<>();
 }

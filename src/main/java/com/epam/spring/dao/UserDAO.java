@@ -1,4 +1,4 @@
-package com.epam.spring.services.dao;
+package com.epam.spring.dao;
 
 import com.epam.spring.model.User;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.epam.spring.services.dao;
+package com.epam.spring.dao;
 
 import com.epam.spring.model.News;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ public interface NewsDAO {
 
     News findById(Long id);
 
-    void save(News object);
+    News save(News object);
 
     void update(News object);
 

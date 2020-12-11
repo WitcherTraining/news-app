@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"author"}, callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "NEWS")
 public class News extends BaseEntity {
@@ -29,8 +29,4 @@ public class News extends BaseEntity {
 
     @Column(name = "DATE")
     private LocalDate date;
-
-    @ManyToOne
-    @JoinColumn(name = "AUTHOR_ID")
-    private User author;
 }

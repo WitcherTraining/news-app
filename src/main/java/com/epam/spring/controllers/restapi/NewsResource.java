@@ -1,6 +1,5 @@
 package com.epam.spring.controllers.restapi;
 
-import com.epam.spring.dao.UserDAO;
 import com.epam.spring.model.News;
 import com.epam.spring.services.NewsService;
 import lombok.extern.slf4j.Slf4j;

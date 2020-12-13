@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,5 +29,5 @@ public class News extends BaseEntity {
     private String content;
 
     @Column(name = "DATE")
-    private LocalDate date;
+    private Date date;
 }

@@ -1,4 +1,4 @@
-package com.epam.spring.controllers.restapi;
+package com.epam.spring.controllers;
 
 import com.epam.spring.model.News;
 import com.epam.spring.services.NewsService;
@@ -37,7 +37,7 @@ public class NewsResource {
     public ResponseEntity<Void> createNews(@RequestBody News news) {
 
         // this is force to create new item in database instead of update it
-        news.setId(0L);
+//        news.setId(0L);
         News createdNews = newsService.save(news);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -46,7 +46,7 @@ public class NewsResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @PostMapping("news/{newsId}")
+    @PutMapping("news/{newsId}")
     public ResponseEntity<News> updateNews(@PathVariable Long newsId, @RequestBody News news) {
         newsService.update(news);
         return new ResponseEntity<>(news,HttpStatus.OK);

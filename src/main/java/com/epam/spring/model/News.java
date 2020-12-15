@@ -28,6 +28,6 @@ public class News extends BaseEntity {
     @Column(name = "CONTENT")
     private String content;
 
-    @Column(name = "DATE")
+    @Column(name = "NEWS_DATE")
     private Date date;
 }

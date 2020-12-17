@@ -29,6 +29,7 @@ public class NewsResource {
     }
 
     @GetMapping("/news/{newsId}")
+    @ResponseStatus(HttpStatus.OK)
     public News getTheNews(@PathVariable Long newsId) {
         return newsService.findById(newsId);
     }
@@ -36,8 +37,6 @@ public class NewsResource {
     @PostMapping("/news")
     public ResponseEntity<Void> createNews(@RequestBody News news) {
 
-        // this is force to create new item in database instead of update it
-//        news.setId(0L);
         News createdNews = newsService.save(news);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

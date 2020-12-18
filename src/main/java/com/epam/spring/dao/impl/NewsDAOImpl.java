@@ -2,6 +2,7 @@ package com.epam.spring.dao.impl;
 
 import com.epam.spring.dao.NewsDAO;
 import com.epam.spring.model.News;
+import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -41,9 +42,26 @@ public class NewsDAOImpl implements NewsDAO {
     @Override
     @Transactional
     public News save(News object) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Serializable savedNews = currentSession.save(object);
-        return (News) savedNews;
+        try (Session currentSession = sessionFactory.getCurrentSession()) {
+            currentSession.beginTransaction();
+            Serializable savedNews = currentSession.save(object);
+            currentSession.getTransaction().commit();
+            return (News) savedNews;
+        }
+    }
+
+    @Override
+    @Transactional
+    public News saveOrUpdateNews(News news) {
+        try (final Session currentSession = sessionFactory.getCurrentSession()) {
+
+            currentSession.beginTransaction();
+            currentSession.saveOrUpdate(news);
+            currentSession.getTransaction().commit();
+
+            return news;
+        }
+
     }
 
     @Override

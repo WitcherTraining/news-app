@@ -31,6 +31,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public News saveOrUpdateNews(News news) {
+        return newsDAO.saveOrUpdateNews(news);
+    }
+
+    @Override
     public void update(News object) {
         newsDAO.update(object);
     }

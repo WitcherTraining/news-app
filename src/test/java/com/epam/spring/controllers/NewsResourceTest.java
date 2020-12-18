@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class NewsResourceTest {
@@ -29,9 +32,31 @@ public class NewsResourceTest {
 
     MockMvc mockMvc;
 
+    List<News> newsList;
+    News news1;
+    News news2;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        news1 = new News();
+        news1.setId(1L);
+        news1.setTitle("Title");
+        news1.setBriefContent("Brief content");
+        news1.setContent("Content");
+        news1.setDate(new Date());
+
+        news2 = new News();
+        news2.setId(2L);
+        news2.setTitle("Title");
+        news2.setBriefContent("Brief content");
+        news2.setContent("Content");
+        news2.setDate(new Date());
+
+        newsList = new ArrayList<>();
+        newsList.add(news1);
+        newsList.add(news2);
 
         newsResource = new NewsResource(newsService);
         mockMvc = MockMvcBuilders.standaloneSetup(newsResource).build();
@@ -40,13 +65,14 @@ public class NewsResourceTest {
     @Test
     public void getAllNews() throws Exception {
         //given
-        List<News> news = new ArrayList<>();
+        List<News> news = newsList;
         when(newsService.findAll()).thenReturn(news);
 
         //when
-        mockMvc.perform(get("/news-app/api/news"))
-                .andExpect(status().is4xxClientError())
-                .andExpect(model().attributeExists("news"));
+        mockMvc.perform(get("/api/news")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].id").value(news1.getId()));
 
         //then
         verify(newsService, times(1)).findAll();
@@ -55,12 +81,7 @@ public class NewsResourceTest {
     @Test
     public void getTheNews() throws Exception {
         //given
-        News news = new News();
-        news.setId(1L);
-        news.setTitle("Title");
-        news.setBriefContent("Brief content");
-        news.setContent("Content");
-        news.setDate(new Date());
+        News news = news1;
 
         //when
         when(newsService.findById(news.getId())).thenReturn(news);
@@ -73,7 +94,24 @@ public class NewsResourceTest {
     }
 
     @Test
-    public void createNews() {
+    public void createNews() throws Exception {
+        //given
+        News news = news1;
+
+        //when
+        when(newsService.save(news1)).thenReturn(news);
+
+        //then
+        mockMvc.perform(post("/api/news")
+                .content("{\n" +
+                        "    \"id\": \"3\",\n" +
+                        "    \"title\": \"Title\",\n" +
+                        "    \"briefContent\": \"brief content\",\n" +
+                        "    \"content\": \"Content\",\n" +
+                        "    \"newsDate\": \"2020-11-01\"\n" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
+
 @Slf4j
 @RestController
 @CrossOrigin("*")
@@ -34,11 +36,23 @@ public class NewsResource {
         return newsService.findById(newsId);
     }
 
-    @PostMapping("/news")
+//    @PostMapping("/news")
+//    public ResponseEntity<Void> createNews(@RequestBody News news) {
+//
+////        news.setId(6L);
+//        News createdNews = newsService.save(news);
+//
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+//                .buildAndExpand(createdNews.getId()).toUri();
+//
+//        return ResponseEntity.created(uri).build();
+//    }
+
+    @PostMapping(path = "/news", consumes = APPLICATION_JSON_VALUE)
+//    @PostMapping("/news")
     public ResponseEntity<Void> createNews(@RequestBody News news) {
 
-        News createdNews = newsService.save(news);
-
+        News createdNews = newsService.saveOrUpdateNews(news);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(createdNews.getId()).toUri();
 

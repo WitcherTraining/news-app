@@ -11,6 +11,8 @@ public interface NewsService {
 
     News save(News object);
 
+    News saveOrUpdateNews(News news);
+
     void update(News object);
 
     void delete(News object);

@@ -4,6 +4,8 @@
 -- INSERT INTO "SYSTEM"."NEWS" (ID, TITLE, BRIEF_CONTENT, CONTENT, NEWS_DATE) VALUES ('2', 'FDA''s Covid-19 vaccine authorization is a ''monumental moment''', 'Shipments of Pfizer and BioNTech''s Covid-19 vaccine will be distributed soon across the country after the FDA on Friday authorized the vaccine for emergency use, a landmark in the pandemic.', 'The emergency use authorization (EUA) is a "significant milestone" in the fight against the pandemic, FDA Commissioner Dr. Stephen Hahn said in a statement Friday. He said it comes after an "open and transparent review process that included input from independent scientific and public health experts and a thorough evaluation by the agency''s career scientists." An EUA stops short of a full approval. Pfizer would have to file a separate application for its vaccine to be fully licensed by the FDA.', '2020-11-10')
 -- INSERT INTO "SYSTEM"."NEWS" (ID, TITLE, BRIEF_CONTENT, CONTENT, NEWS_DATE) VALUES ('3', 'Dinosaurs would have continued to thrive had it not been for the asteroid, researchers saying', 'Dinosaurs were doing well and could have continued to dominate Planet Earth if they had not been wiped out by an asteroid, new research has found.', 'After emerging during the Triassic period some 230 million years ago, dinosaurs occupied every continent and were dominant in most terrestrial ecosystems, until they were rendered extinct by the asteroid impact 66 million years ago.', '2019-10-10')
 
+CREATE SEQUENCE  "SYSTEM"."NEWS_ID_SEQ"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 201 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+
 CREATE TABLE "SYSTEM"."NEWS"
    (	"ID" NUMBER NOT NULL ENABLE,
 	"TITLE" VARCHAR2(100 BYTE),

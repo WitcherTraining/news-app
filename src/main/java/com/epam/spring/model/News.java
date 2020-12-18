@@ -6,18 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Entity
 @Table(name = "NEWS")
-public class News extends BaseEntity {
+public class News {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "news_id_generator")
+    @SequenceGenerator(name = "news_id_generator", sequenceName = "NEWS_ID_SEQ", allocationSize = 1)
+    private Long id;
 
     @Column(name = "TITLE")
     private String title;

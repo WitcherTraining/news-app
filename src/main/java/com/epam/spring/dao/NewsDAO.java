@@ -13,6 +13,8 @@ public interface NewsDAO {
 
     News save(News object);
 
+    News saveOrUpdateNews(News news);
+
     void update(News object);
 
     void delete(News object);

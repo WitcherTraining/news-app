@@ -1,0 +1,41 @@
+{
+    "title": "Internationalizing with i18next",
+
+    "nav": {
+        "home": "Home",
+        "news": "News",
+        "login": "Login",
+        "logout": "Logout"
+    },
+
+    "message": {
+        "login_success": "Login sucessful",
+        "login_fail": "Invalid credentials",
+        "logout_msg": "You are logged out",
+        "thanks": "Thank You for using my application!",
+        "blank_field": "Please, enter a ",
+        "not_enough_chars": "Enter at least 5 characters in the field ",
+        "delete_success": "Delete of the News with next ID was successful: ",
+        "delete_checked": "Choose for delete",
+        "welcome": "Welcome!",
+        "welcome_msg_part1": "Welcome to ",
+        "welcome_msg_part2": ". You can manage your news", 
+        "welcome_msg_part3": " here"
+    },
+
+    "label": {
+        "username": "User name: ",
+        "password": "Password: ",
+        "breaking_news": "BREAKING NEWS TODAY",
+        "show_news": "Show this news",
+        "update": "Update",
+        "add_news": "Add fresh news",
+        "delete_news": "Delete this news",
+        "delete_checked_news": "Delete checked News",
+        "title": "Title",
+        "brief_content": "Brief content",
+        "content": "Content",
+        "date": "Date",
+        "save": "Save"
+    }
+}

@@ -2,7 +2,6 @@ package com.epam.spring.dao.impl;
 
 import com.epam.spring.dao.NewsDAO;
 import com.epam.spring.model.News;
-import com.sun.istack.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -61,7 +60,6 @@ public class NewsDAOImpl implements NewsDAO {
 
             return news;
         }
-
     }
 
     @Override

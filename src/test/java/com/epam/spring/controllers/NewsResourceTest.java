@@ -7,9 +7,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -18,8 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class NewsResourceTest {
@@ -95,6 +92,27 @@ public class NewsResourceTest {
 
     @Test
     public void createNews() throws Exception {
+//        //given
+//        News news = news1;
+//
+//        //when
+//        when(newsService.save(news1)).thenReturn(news);
+//
+//        //then
+//        mockMvc.perform(post("/api/news")
+//                .content("{\n" +
+//                        "    \"id\": \"3\",\n" +
+//                        "    \"title\": \"Title\",\n" +
+//                        "    \"briefContent\": \"brief content\",\n" +
+//                        "    \"content\": \"Content\",\n" +
+//                        "    \"newsDate\": \"2020-11-01\"\n" +
+//                        "}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updateNews() throws Exception {
         //given
         News news = news1;
 
@@ -102,9 +120,9 @@ public class NewsResourceTest {
         when(newsService.save(news1)).thenReturn(news);
 
         //then
-        mockMvc.perform(post("/api/news")
+        mockMvc.perform(put("/api/news/1")
                 .content("{\n" +
-                        "    \"id\": \"3\",\n" +
+                        "    \"id\": \"1\",\n" +
                         "    \"title\": \"Title\",\n" +
                         "    \"briefContent\": \"brief content\",\n" +
                         "    \"content\": \"Content\",\n" +
@@ -115,10 +133,15 @@ public class NewsResourceTest {
     }
 
     @Test
-    public void updateNews() {
-    }
+    public void deleteNews() throws Exception {
+        //given
+        Long testId = 1L;
 
-    @Test
-    public void deleteNews() {
+        //when
+        when(newsService.findById(testId)).thenReturn(news1);
+
+        //then
+        mockMvc.perform(delete("/api/news/1"))
+                .andExpect(status().isNotFound());
     }
 }

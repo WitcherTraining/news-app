@@ -71,9 +71,12 @@ public class NewsResource {
 
         if (news == null) {
             throw new RuntimeException("News id " + newsId + " not found");
-        } else {
-            log.debug("Deleting news with id: " + newsId);
-            return ResponseEntity.notFound().build();
         }
+
+        newsService.deleteById(newsId);
+
+        log.debug("Deleting news with id: " + newsId);
+        return ResponseEntity.notFound().build();
+
     }
 }
